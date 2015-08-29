@@ -1,3 +1,10 @@
 node_modules
+
+# ignore logs
 *.log
 logs
+
+# ignore generated files
+public/js
+public/css
+dist
