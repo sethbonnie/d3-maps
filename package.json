@@ -1,0 +1,32 @@
+{
+  "name": "d3-maps",
+  "version": "0.0.1",
+  "description": "experiments with d3 maps",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sethbonnie/d3-maps.git"
+  },
+  "author": "Seth Bonnie <sethkbonnie@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sethbonnie/d3-maps/issues"
+  },
+  "homepage": "https://github.com/sethbonnie/d3-maps#readme",
+  "dependencies": {
+    "d3": "^3.5.6",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
