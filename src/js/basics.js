@@ -10,8 +10,6 @@ var svg = d3.select('body')
               .attr('width', w)
               .attr('height', h);
 
-console.log( 'hello' )
-
 svg.selectAll('rect')
   .data(dataset)
   .enter()

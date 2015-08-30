@@ -1,2 +1,2 @@
 // import './basics'
-import './bar-chart'
+import './line-chart'

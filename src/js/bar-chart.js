@@ -9,7 +9,7 @@ function colorPicker(v, max) {
   else return '#FF0033';
 }
 
-function genDataset( size, max: 100 ) {
+function genDataset( size, max = 100 ) {
   var result = [];
 
   for ( let i = 0; i < size; i++ ) {
