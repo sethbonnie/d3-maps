@@ -1,2 +1,2 @@
 // import './basics'
-import './line-chart'
+import './scatter-plot'
