@@ -2,4 +2,5 @@
 // import './bar-chart'
 // import './line-chart'
 // import './scatter-plot'
-import './working-with-csv'
+// import './working-with-csv'
+import './working-with-json'
