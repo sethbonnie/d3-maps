@@ -4,4 +4,6 @@
 // import './scatter-plot'
 // import './working-with-csv'
 // import './working-with-json'
-import './scaling'
+// import './calling-web-apis'
+// import './scaling'
+import './axis'
