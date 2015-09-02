@@ -50,18 +50,19 @@ function buildLine( dataset ) {
     .append('svg')
       .attr({
         width: w,
-        height: h
+        height: h,
+        id: 'svg-'+dataset.category
       });
 
   var xAxis = svg.append('g')
     .call(xAxisGen)
-    .attr('class', 'axis')
+    .attr('class', 'x-axis')
     .attr('transform', 'translate(0,'+(h-padding)+')');
 
 
   var yAxis = svg.append('g')
     .call(yAxisGen)
-    .attr('class', 'axis')
+    .attr('class', 'y-axis')
     .attr('transform', 'translate('+padding+', 0)');
 
   var viz = svg.append('path')
@@ -69,7 +70,52 @@ function buildLine( dataset ) {
       d: lineFun(dataset.monthlySales),
       stroke: 'purple',
       'stroke-width': 2,
-      'fill': 'none'
+      'fill': 'none',
+      'class': 'path-' + dataset.category
+    });
+}
+
+function updateLine( dataset ) {
+  console.log( dataset );
+
+  var minDate = getDate(dataset.monthlySales[0]['month']);
+  var maxDate = getDate(dataset.monthlySales[dataset.monthlySales.length-1]['month']);
+
+  var xScale = d3.time.scale()
+                .domain([minDate, maxDate])
+                .range([padding, w-padding]);
+
+  var yScale = d3.scale.linear()
+                .domain([
+                  0, 
+                  d3.max(dataset.monthlySales, (d) => { return d.sales; })
+                ])
+                .range([h-padding, 10]);
+
+  var xAxisGen = d3.svg.axis()
+    .scale(xScale)
+    .orient('bottom')
+    .tickFormat(d3.time.format('%b'))
+    .ticks( dataset.monthlySales.length - 1 );
+
+  var yAxisGen = d3.svg.axis().scale(yScale).orient('left');
+
+  var lineFun = d3.svg.line()
+    .x( (d) => { return xScale(getDate(d.month)); })
+    .y( (d) => { return yScale(d.sales); })
+    .interpolate('linear');
+
+  var svg = d3.select('body').select('#svg-'+dataset.category);
+
+  var xAxis = svg.selectAll('g.x-axis').call(xAxisGen);
+
+  console.log( dataset );
+
+  var yAxis = svg.selectAll('g.y-axis').call(yAxisGen);;
+
+  var viz = svg.selectAll('.path-'+dataset.category)
+    .attr({
+      d: lineFun(dataset.monthlySales)
     });
 }
 
@@ -122,4 +168,18 @@ d3.json( apiAddr, (err, data) => {
     buildLine( ds );
     showTotals( ds );
   });
+
+  d3.select( 'select' )
+    .on( 'change', (d, i) => {
+      var sel = d3.select('#date-option').node().value;
+
+      var json = JSON.parse(window.atob(data.content));
+      var contents = json.contents;
+
+      contents.forEach((ds) => {
+        var len = ds.monthlySales.length;
+        ds.monthlySales.splice(0, len - sel );
+        updateLine( ds );
+      });
+    });
 });

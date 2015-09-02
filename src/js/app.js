@@ -7,4 +7,5 @@
 // import './calling-web-apis'
 // import './scaling'
 // import './axis'
-import './adding-filters'
+// import './filter-1'
+import './filter-2'
