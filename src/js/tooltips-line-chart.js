@@ -85,7 +85,7 @@ function buildLine( dataset ) {
       'class': 'path-' + dataset.category
     });
 
-  var dots = svg.selectAll('circle')
+  var visibledots = svg.selectAll('circle.circle-'+dataset.category)
     .data( dataset.monthlySales )
     .enter()
     .append('circle')
@@ -93,8 +93,21 @@ function buildLine( dataset ) {
       cx: (d) => { return xScale(getDate(d.month)); },
       cy: (d) => { return yScale(d.sales); },
       r: 3,
-      fill: '#F03',
-      class: 'circle-'+dataset.category
+      class: 'circle-' + dataset.category,
+      fill: '#F03'
+    });
+
+  // larger invisible dots for displaying the tooltip.
+  var hoverdots = svg.selectAll('circle.circle-hover-'+dataset.category)
+    .data( dataset.monthlySales )
+    .enter()
+    .append('circle')
+    .attr({
+      cx: (d) => { return xScale(getDate(d.month)); },
+      cy: (d) => { return yScale(d.sales); },
+      r: 15,
+      class: 'circle-hover-' + dataset.category,
+      'fill-opacity': 0
     })
     .style({
       cursor: 'pointer'
@@ -173,7 +186,16 @@ function updateLine( dataset ) {
       d: lineFun(dataset.monthlySales)
     });
 
-  var dots = svg.selectAll('.circle-'+dataset.category)
+  var visibledots = svg.selectAll('.circle-'+dataset.category)
+    .transition()
+    .duration(1000)
+    .ease('quad')
+    .attr({
+      cx: (d) => { return xScale(getDate(d.month)); },
+      cy: (d) => { return yScale(d.sales); }
+    });
+
+  var hoverdots = svg.selectAll('.circle-hover-'+dataset.category)
     .on( 'mouseover', (d) => {
       tooltip
         .transition()
