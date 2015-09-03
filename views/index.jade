@@ -3,17 +3,16 @@ html
   head
     title D3-Maps
     style.
-      .x-axis path, .y-axis path
-      .x-axis line, .y-axis line {
-        fill: none;
+      .x-axis path, .x-axis line {
         stroke: black;
         shape-rendering: crispEdges;
+        fill: none;
       }
 
-      .axis {
-        fill: none;
+      .y-axis path, .y-axis line {
         stroke: black;
         shape-rendering: crispEdges;
+        fill: none;
       }
 
       .x-axis text, .y-axis text {
@@ -26,6 +25,20 @@ html
         font-weight: 300;
         font-size: 1.8em;
       }
+
+      div.tooltip {
+        color: #444;
+        position: absolute;
+        max-width: 200px;
+        height: auto;
+        padding: 5px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+        pointer-events: none; /* VERY IMPORTANT */
+        font-family: sans-serif;
+        font-size: 10px;
+      }
   body
     div
       //- p Show Labels
@@ -34,10 +47,10 @@ html
       //-   option(value="minmax") Min/Max
       //-   option(value="none") None
 
-      //- span Choose Date Range 
-      //- select#date-option
-      //-   option(value="12") Last Year
-      //-   option(value="6") Last 6/mon
-      //-   option(value="3") Last Quarter
+      span Choose Date Range 
+      select#date-option
+        option(value="12") Last Year
+        option(value="6") Last 6/mon
+        option(value="3") Last Quarter
 
     script(src='/js/app.js')

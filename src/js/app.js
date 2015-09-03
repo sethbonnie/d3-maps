@@ -9,4 +9,5 @@
 // import './axis'
 // import './filter-1'
 // import './filter-2'
-import './tooltips-1'
+// import './tooltips-1'
+import './tooltips-line-chart'
