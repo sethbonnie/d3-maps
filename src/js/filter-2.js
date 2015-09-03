@@ -16,7 +16,7 @@ function getDate(d) {
   var day = strDate.substr(6,2);
 
   return new Date(year, month, day);
-}
+}// /getDate()
 
 function buildLine( dataset ) {
 
@@ -66,6 +66,9 @@ function buildLine( dataset ) {
     .attr('transform', 'translate('+padding+', 0)');
 
   var viz = svg.append('path')
+    .transition()
+    .duration(300)
+    .ease('quad')
     .attr({
       d: lineFun(dataset.monthlySales),
       stroke: 'purple',
@@ -73,7 +76,7 @@ function buildLine( dataset ) {
       'fill': 'none',
       'class': 'path-' + dataset.category
     });
-}
+}// /buildLine()
 
 function updateLine( dataset ) {
   console.log( dataset );
@@ -114,10 +117,13 @@ function updateLine( dataset ) {
   var yAxis = svg.selectAll('g.y-axis').call(yAxisGen);;
 
   var viz = svg.selectAll('.path-'+dataset.category)
+    .transition()
+    .duration(1000)
+    .ease('quad')
     .attr({
       d: lineFun(dataset.monthlySales)
     });
-}
+}// /updateLine()
 
 function calcTotal( dataset ) {
   var salesTotal = 0;
@@ -127,12 +133,12 @@ function calcTotal( dataset ) {
   }
 
   return salesTotal;
-}
+}// /calcTotal()
 
 function calcAvg( dataset ) {
   var total = calcTotal( dataset );
   return (total / dataset.length);
-}
+}// /calcAvg()
 
 function showTotals( dataset ) {
   var t = d3.select('body').append('table');
@@ -146,13 +152,13 @@ function showTotals( dataset ) {
     .append('tr')
     .append('td')
     .text((d) => { return d; });
-}
+}// /showTotals
 
 function showHeader (dataset) {
   d3.select('body')
     .append('h1')
     .text(dataset.category + ' Sales (2013)');
-}
+}// /showHeader()
 
 d3.json( apiAddr, (err, data) => {
   if ( err ) {
@@ -181,5 +187,5 @@ d3.json( apiAddr, (err, data) => {
         ds.monthlySales.splice(0, len - sel );
         updateLine( ds );
       });
-    });
-});
+    });// /d3.select('select')
+});// /d3.json()
